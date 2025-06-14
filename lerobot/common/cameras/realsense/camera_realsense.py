@@ -115,8 +115,7 @@ class RealSenseCamera(Camera):
         super().__init__(config)
 
         self.config = config
-
-        if config.serial_number_or_name.isdigit():
+        if str(config.serial_number_or_name).isdigit():
             self.serial_number = config.serial_number_or_name
         else:
             self.serial_number = self._find_serial_number_from_name(config.serial_number_or_name)
@@ -267,7 +266,7 @@ class RealSenseCamera(Camera):
 
     def _configure_rs_pipeline_config(self, rs_config):
         """Creates and configures the RealSense pipeline configuration object."""
-        rs.config.enable_device(rs_config, self.serial_number)
+        rs.config.enable_device(rs_config, str(self.serial_number))
 
         if self.width and self.height and self.fps:
             rs_config.enable_stream(
